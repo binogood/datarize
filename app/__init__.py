@@ -18,7 +18,7 @@ def init_cors(app: FastAPI) -> None:
         allow_origins=["*"],
         allow_credentials=True,
         allow_methods=["*"],
-        allow_headers=["*"]
+        allow_headers=["*"],
     )
 
 
@@ -58,10 +58,7 @@ DESCRIPTION = "데이터라이즈 과제"
 
 
 def create_app() -> FastAPI:
-    app = FastAPI(
-        title = "datarize",
-        description = DESCRIPTION,
-    )
+    app = FastAPI(title="datarize", description=DESCRIPTION,)
     init_routers(app=app)
     init_cors(app=app)
     init_listeners(app=app)
@@ -71,4 +68,3 @@ def create_app() -> FastAPI:
 
 
 app = create_app()
-

@@ -1,4 +1,3 @@
-
 import jwt
 import bcrypt
 
@@ -26,22 +25,26 @@ class UserService:
         if await self.user_repo.get_by_user(email=email):
             raise DuplicateEmailException
 
-        hash_pw = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode('utf-8')
-        user = User().create(
-            email=email, password=hash_pw
-        )
+        user = User().create(email=email, password=password)
         user = await self.user_repo.save(user=user)
         return user
 
     @Transaction(propagation=Propagation.REQUIRED)
     async def login_user(self, email: str, password: str) -> Optional[User]:
-        user = await self.user_repo.get_by_user(email)
-        hash_pw = await self.user_repo.check_password(user, password)
-        if not hash_pw:
+        user = await self.user_repo.get_by_user(email=email)
+        if not user:
+            raise UserNotFoundException
+
+        if (
+            await self._check_password(password1=user.password, password2=password)
+            is False
+        ):
             raise UserNotFoundException
 
         access_token = jwt.encode(
-            {'user': user.id},
-            config.JWT_SECRET_KEY,
-            algorithm=config.JWT_ALGORITHM)
+            {"user": user.id}, config.JWT_SECRET_KEY, algorithm=config.JWT_ALGORITHM
+        )
         return access_token
+
+    async def _check_password(self, password1: str, password2: str) -> bool:
+        return bcrypt.checkpw(password1.encode("utf8"), password2.encode("utf-8"))

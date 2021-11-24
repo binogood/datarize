@@ -41,14 +41,12 @@ class TaskMySQLRepo(TaskRepo):
     async def get_by_task_user_id(self, task: Task, user: User) -> Optional[Task]:
         return (
             session.query(Task)
-            .filter(Task.user_id == user.id, Task.id == task.id).first()
+            .filter(Task.user_id == user.id, Task.id == task.id)
+            .first()
         )
 
     async def get_by_task_list(self, user: User) -> Optional[Task]:
-        return (
-            session.query(Task)
-            .filter(Task.user_id == user.id)
-        )
+        return session.query(Task).filter(Task.user_id == user.id)
 
     async def save(self, user: Task) -> Task:
         session.add(Task)

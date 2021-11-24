@@ -13,7 +13,7 @@ user_router = APIRouter()
     "/create",
     response_model=CreateUserResponse,
     responses={"400": {"model": ExceptionResponseSchema}},
-    summary="Create User"
+    summary="Create User",
 )
 async def create_user(request: CreateUserRequest):
     return await UserService().create_user(**request.dict())
@@ -23,7 +23,7 @@ async def create_user(request: CreateUserRequest):
     "/login",
     response_model=LoginUserResponse,
     responses={"404": {"model": ExceptionResponseSchema}},
-    summary="Login User"
+    summary="Login User",
 )
 async def login_user(request: LoginUserRequest):
     return await UserService().login_user(**request.dict())

@@ -18,9 +18,7 @@ class TaskService:
         if await self.user_repo.get_by_email(email=email):
             raise DuplicateEmailException
 
-        user = User().create(
-            email=email, password=password
-        )
+        user = User().create(email=email, password=password)
         user = await self.user_repo.save(user=user)
         return user
 
