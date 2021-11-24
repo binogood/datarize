@@ -6,4 +6,3 @@ sub_router = APIRouter()
 sub_router.include_router(user_router, prefix="", tags=["User"])
 
 __all__ = ["sub_router"]
-
