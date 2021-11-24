@@ -5,19 +5,12 @@ class CreateTaskRequest(BaseModel):
     name: str
 
     class Config:
-        schema_extra = {
-            "example": {
-                "name": "task 생성",
-            }
-        }
+        schema_extra = {"example": {"name": "task 생성",}}
 
 
-class UpdateTaskStatusRequest(BaseModel):
+class UpdateTaskRequest(BaseModel):
+    name: str
     completed: bool
 
     class Config:
-        schema_ext = {
-            "example": {
-                "completed": True
-            }
-        }
+        schema_ext = {"example": {"name": "task 변경","completed": True,}}

@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 
 from app.user.request.user import CreateUserRequest, LoginUserRequest
-from app.user.response.user import CreateUserResponse, LoginUserResponse
+from app.user.response.user import CreateUserResponse
 from app.user.service.user import UserService
 
 from core.fastapi.schemas.response import ExceptionResponseSchema
@@ -21,7 +21,6 @@ async def create_user(request: CreateUserRequest):
 
 @user_router.post(
     "/login",
-    response_model=LoginUserResponse,
     responses={"404": {"model": ExceptionResponseSchema}},
     summary="Login User"
 )

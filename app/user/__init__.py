@@ -2,7 +2,7 @@ from fastapi import APIRouter
 
 from app.user.views import sub_router
 
-router = APIRouter()
-router.include_router(sub_router, prefix="/users", tags=["User"])
+user_router = APIRouter()
+user_router.include_router(sub_router, prefix="/user", tags=["User"])
 
-__all__ = ["router"]
+__all__ = ["user_router"]

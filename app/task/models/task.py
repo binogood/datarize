@@ -15,4 +15,7 @@ class Task(Base, TimestampMixin):
     completed = Column(Boolean, nullable=False, default=False)
 
     def create(self, name: str, user_id: int) -> Union["Task", NoReturn]:
-        return Task(name = name, user_id = user_id)
+        return Task(name=name, user_id=user_id)
+
+    def update(self, name: str, completed: bool) -> Union["Task", NoReturn]:
+        return Task(name=name, completed=completed)

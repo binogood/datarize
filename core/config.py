@@ -16,8 +16,10 @@ class Config(BaseSettings):
 class DevelopmentConfig(Config):
     DB_URL: str = f"mysql+pymysql://root:poiu1234@localhost:3306/datarize"
 
+
 class LocalConfig(Config):
     DB_URL: str = f"mysql+pymysql://root:poiu1234@localhost:3306/datarize"
+
 
 def get_config():
     env = os.getenv("EVN", "development")

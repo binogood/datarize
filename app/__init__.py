@@ -9,21 +9,23 @@ from core.fastapi.middlewares.authentication import (
     AuthenticationMiddleware,
     AuthBackend,
 )
-from app.user import router
+from app.user import user_router
+from app.task import task_router
 
 
 def init_cors(app: FastAPI) -> None:
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],
         allow_credentials=True,
+        allow_origins=["*"],
         allow_methods=["*"],
-        allow_headers=["*"]
+        allow_headers=["*"],
     )
 
 
 def init_routers(app: FastAPI) -> None:
-    app.include_router(router)
+    app.include_router(user_router)
+    app.include_router(task_router)
 
 
 def init_listeners(app: FastAPI) -> None:
@@ -58,10 +60,7 @@ DESCRIPTION = "데이터라이즈 과제"
 
 
 def create_app() -> FastAPI:
-    app = FastAPI(
-        title = "datarize",
-        description = DESCRIPTION,
-    )
+    app = FastAPI(title="datarize", description=DESCRIPTION,)
     init_routers(app=app)
     init_cors(app=app)
     init_listeners(app=app)
@@ -71,4 +70,3 @@ def create_app() -> FastAPI:
 
 
 app = create_app()
-
