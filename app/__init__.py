@@ -2,7 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from core.config import config
+from core.di import init_di
 from core.exceptions.base import CustomException
 from core.fastapi.middlewares.sqlalchemy import SQLAlchemyMiddleware
 from core.fastapi.middlewares.authentication import (
@@ -61,13 +61,14 @@ def create_app() -> FastAPI:
     app = FastAPI(
         title = "datarize",
         description = DESCRIPTION,
-        docs_url=None if config.ENV == "production" else "/docs",
     )
     init_routers(app=app)
     init_cors(app=app)
     init_listeners(app=app)
     init_middleware(app=app)
+    init_di()
     return app
 
 
 app = create_app()
+

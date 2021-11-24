@@ -17,7 +17,8 @@ class SQLAlchemyMiddleware(BaseHTTPMiddleware):
         super().__init__(app)
 
     async def dispatch(
-        self, request: Request, call_next: RequestResponseEndpoint):
+        self, request: Request, call_next: RequestResponseEndpoint
+    ):
         session_id = str(uuid4())
         context = set_session_context(session_id = session_id)
 
@@ -31,3 +32,4 @@ class SQLAlchemyMiddleware(BaseHTTPMiddleware):
             reset_session_context(context=context)
 
         return response
+

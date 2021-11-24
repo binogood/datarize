@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 
-from app.user.request.user import CreateUserRequest
-from app.user.response.user import CreateUserResponse, GetUserResponse
+from app.user.request.user import CreateUserRequest, LoginUserRequest
+from app.user.response.user import CreateUserResponse, LoginUserResponse
 from app.user.service.user import UserService
 
 from core.fastapi.schemas.response import ExceptionResponseSchema
@@ -10,7 +10,7 @@ user_router = APIRouter()
 
 
 @user_router.post(
-    "",
+    "/create",
     response_model=CreateUserResponse,
     responses={"400": {"model": ExceptionResponseSchema}},
     summary="Create User"
@@ -19,11 +19,11 @@ async def create_user(request: CreateUserRequest):
     return await UserService().create_user(**request.dict())
 
 
-@user_router.get(
-    "/{user_id}",
-    response_model=GetUserResponse,
-    responses={"404": {"model":ExceptionResponseSchema}},
-    summary="Get User"
+@user_router.post(
+    "/login",
+    response_model=LoginUserResponse,
+    responses={"404": {"model": ExceptionResponseSchema}},
+    summary="Login User"
 )
-async def get_user(user_id: int):
-    return await UserService().get_user(user_id=user_id)
+async def login_user(request: LoginUserRequest):
+    return await UserService().login_user(**request.dict())

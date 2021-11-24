@@ -15,12 +15,14 @@ class CreateUserResponse(BaseModel):
             "example": {
                 "id": 1,
                 "email": "test@gmail.com",
-                "password": "11223344"
+                "password": "11223344",
+                "created_at": "2021-11-11T07:50:54.289Z",
+                "updated_at": "2021-11-11T07:50:54.289Z",
             }
         }
 
 
-class GetUserResponse(BaseModel):
+class LoginUserResponse(BaseModel):
     id: int
     email: str
     created_at: datetime
@@ -31,5 +33,7 @@ class GetUserResponse(BaseModel):
             "example": {
                 "id": 1,
                 "email": "test@gmail.com",
+                "created_at": "2021-11-11T07:50:54.289Z",
+                "updated_at": "2021-11-11T07:50:54.289Z",
             }
         }

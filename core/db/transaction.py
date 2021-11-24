@@ -17,13 +17,13 @@ class Transaction:
         @wraps(function)
         async def decorator(*args, **kwargs):
             try:
-                if self.propagation == Propagation.REQUIRES:
+                if self.propagation == Propagation.REQUIRED:
                     result = await self.run_required(
-                        function=function, args=args, kwargs=kwargs
+                        function=function, args=args, kwargs=kwargs,
                     )
                 elif self.propagation == Propagation.REQUIRES_NEW:
                     result = await self.run_requires_new(
-                        function=function, args=args, kwargs=kwargs
+                        function=function, args=args, kwargs=kwargs,
                     )
                 else:
                     result = await self.run_requires_new(
